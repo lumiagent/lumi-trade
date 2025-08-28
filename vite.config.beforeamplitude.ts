@@ -2,7 +2,6 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
 import { nodePolyfills } from 'vite-plugin-node-polyfills'
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     react(),
@@ -12,12 +11,12 @@ export default defineConfig({
     alias: {
       crypto: 'crypto-browserify',
       stream: 'stream-browserify',
-      assert: 'assert'
-    }
+      assert: 'assert',
+    },
   },
   define: {
     'process.env': {},
-    global: 'globalThis'
+    global: 'globalThis',
   },
   optimizeDeps: {
     include: [
@@ -25,17 +24,20 @@ export default defineConfig({
       'process',
       'crypto-browserify',
       'stream-browserify',
-      'assert'
+      'assert',
     ],
     esbuildOptions: {
       define: {
-        global: 'globalThis'
-      }
-    }
+        global: 'globalThis',
+      },
+    },
   },
   build: {
     commonjsOptions: {
-      transformMixedEsModules: true
-    }
-  }
+      transformMixedEsModules: true,
+    },
+    rollupOptions: {
+      external: ['@amplitude/analytics-core'],
+    },
+  },
 })
